@@ -391,6 +391,17 @@ MonoBehaviour:
   tileObject: {fileID: 5566682390923022914, guid: bcbdd5c2938736547a70defb5d8a3aa7, type: 3}
   cameraSizeOffset: 0
   cameraVerticalOffset: 0
+  avalaiblePieces:
+  - {fileID: 1242044460274369870, guid: 9ca5d55c36692524b99ed26f16f3af01, type: 3}
+  - {fileID: 7316634958367240836, guid: 3c8562f43c0d6cb41bd64f986fa81e5d, type: 3}
+  - {fileID: 120350063152834840, guid: 080c0b59a3344fb47a46354086291b25, type: 3}
+  - {fileID: 2098098409770226757, guid: 020edca960d3dfd4b8623e61cb16563d, type: 3}
+  - {fileID: 4254309908187419497, guid: 44282705531208e4c8f0c60c7d852ed7, type: 3}
+  - {fileID: 239237891106116093, guid: 0890309bc861911499e91dac06fe8567, type: 3}
+  - {fileID: 6409731483880258713, guid: 7e690f943de5d004f99bace057ee1c7d, type: 3}
+  - {fileID: 9107711918513199880, guid: 69fba722f8c9cda46bc48725f5e98b51, type: 3}
+  - {fileID: 5958741469637982546, guid: 96e465b2cd565e04c94b5765fa11ec48, type: 3}
+  - {fileID: 7589567665917264101, guid: 39eb49fa832fbd14e8b3d4ebf6409fe9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
