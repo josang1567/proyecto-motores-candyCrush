@@ -7,7 +7,7 @@ public class piece : MonoBehaviour
     public int x;
     public int y;
     public board board;
-
+     
     public enum type
     {
         elephant,
@@ -19,7 +19,8 @@ public class piece : MonoBehaviour
         penguin,
         pig,
         rabbit,
-        snake
+        snake,
+        empty
     }
     public type pieceType;
 
@@ -50,6 +51,5 @@ public class piece : MonoBehaviour
 
     void Update()
     {
-
     }
 }

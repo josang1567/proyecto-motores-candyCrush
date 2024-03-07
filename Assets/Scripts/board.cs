@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ public class board : MonoBehaviour
     public float cameraSizeOffset;
     public float cameraVerticalOffset;
     public GameObject[] avalaiblePieces;
+    public GameObject emptyPiece;
     Tile[,] tiles;
     piece[,] pieces;
     Tile startTile;
@@ -23,11 +25,12 @@ public class board : MonoBehaviour
         setupBoard();
         setupPieces();
         positionCamera();
+        //checkTable();
+
     }
 
     void Update()
     {
-
     }
     void setupBoard()
     {
@@ -79,7 +82,7 @@ public class board : MonoBehaviour
     }
     public void tileUp(Tile tile_)
     {
-        if (startTile != null && endTile != null && isCloseTo(startTile,endTile))
+        if (startTile != null && endTile != null && isCloseTo(startTile, endTile))
         {
             swapTiles();
         }
@@ -93,7 +96,22 @@ public class board : MonoBehaviour
         endPiece.Move(startTile.x, startTile.y);
         pieces[startTile.x, startTile.y] = endPiece;
         pieces[endTile.x, endTile.y] = startPiece;
+        if (startPiece.GetComponent<piece>().pieceType.ToString() != "empty")
+        {
+            checkMatch(endPiece.x, endPiece.y);
+        }
+        if (endPiece.GetComponent<piece>().pieceType.ToString() != "empty")
+        {
+            checkMatch(startPiece.x, startPiece.y);
+        }
+
+
+
+
     }
+
+
+
 
     public bool isCloseTo(Tile start, Tile end)
     {
@@ -101,10 +119,165 @@ public class board : MonoBehaviour
         {
             return true;
         }
-        if (Math.Abs((start.y - end.y)) == 1 && start.x == end.x    )
+        if (Math.Abs((start.y - end.y)) == 1 && start.x == end.x)
         {
             return true;
         }
         return false;
     }
+    public void checkMatch(int x, int y)
+    {
+        switch (x)
+        {
+            case 0:
+                //comprueba dos a la derecha
+                dosDerecha(x, y);
+                break;
+            case 1:
+                //comprueba izquierda, centro, derecha
+                if (centro(x, y) == true) {}
+                else
+                {
+                    //comprueba comprueba x inicial y dos a la derecha
+                    dosDerecha(x, y);
+                }
+
+
+                break;
+            case 2:
+            case 3:
+                //conmprueba izquierda, centro inicial y derecha
+                if (centro(x, y) == true) { }
+                //comprueba dos a la derecha
+                else if (dosDerecha(x, y) == true)
+                { }
+                //comprueba dos a la izquierda
+                else if (dosIzquierda(x, y) == true)
+                { }
+
+
+
+
+                break;
+            case 4:
+                //conmprueba izquierda, centro inicial y derecha
+                if (centro(x, y) == true) 
+                {}
+                //comprueba dos a la derecha
+                else if (dosIzquierda(x, y) == true)
+                {}
+
+                break;
+            case 5:
+                // comprueba dos a la izquierda
+                dosIzquierda(x, y);
+
+
+                break;
+
+
+        }
+    }
+
+    public bool dosIzquierda(int x, int y)
+    {
+        Debug.Log("Comprobando dos a la izquierda");
+        bool eliminado = false;
+        if (pieces[x - 1, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType && pieces[x - 2, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType)
+        {
+            Debug.Log("Son iguales");
+            var a = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            a.transform.parent = transform;
+            Destroy(pieces[x, y].gameObject);
+            pieces[x, y] = a.GetComponent<piece>();
+
+            pieces[x, y]?.Setup(x, y, this);
+
+            var b = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            b.transform.parent = transform;
+            Destroy(pieces[x - 1, y].gameObject);
+            pieces[x - 1, y] = b.GetComponent<piece>();
+
+            pieces[x - 1, y]?.Setup(x, y, this);
+
+            var c = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            c.transform.parent = transform;
+            Destroy(pieces[x - 2, y].gameObject);
+            pieces[x - 2, y] = c.GetComponent<piece>();
+
+            pieces[x - 2, y]?.Setup(x, y, this);
+
+            eliminado = true;
+        }
+        return eliminado;
+    }
+
+    public bool dosDerecha(int x, int y)
+    {
+        Debug.Log("Comprobando dos a la derecha");
+
+        bool eliminado = false;
+
+        if (pieces[x + 1, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType && pieces[x + 2, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType)
+        {
+            Debug.Log("Son iguales");
+
+            var a = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            a.transform.parent = transform;
+            Destroy(pieces[x + 1, y].gameObject);
+            pieces[x + 1, y] = a.GetComponent<piece>();
+            pieces[x + 1, y]?.Setup(x, y, this);
+            //
+            var b = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            b.transform.parent = transform;
+            Destroy(pieces[x, y].gameObject);
+            pieces[x, y] = b.GetComponent<piece>();
+            pieces[x, y]?.Setup(x, y, this);
+            //
+            var c = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            c.transform.parent = transform;
+            Destroy(pieces[x + 2, y].gameObject);
+            pieces[x + 2, y] = c.GetComponent<piece>();
+            pieces[x + 2, y]?.Setup(x, y, this);
+            eliminado = true;
+        }
+        return eliminado;
+    }
+
+    public bool centro(int x, int y)
+    {
+        Debug.Log("Comprobando a los lados");
+
+        bool eliminado = false;
+
+        if (pieces[x - 1, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType && pieces[x + 1, y].GetComponent<piece>().pieceType == pieces[x, y].GetComponent<piece>().pieceType)
+        {
+            Debug.Log("Son iguales");
+
+            var a = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            a.transform.parent = transform;
+            Destroy(pieces[x - 1, y].gameObject);
+            pieces[x - 1, y] = a.GetComponent<piece>();
+
+            pieces[x - 1, y]?.Setup(x, y, this);
+            //
+            var b = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            b.transform.parent = transform;
+            Destroy(pieces[x, y].gameObject);
+            pieces[x, y] = b.GetComponent<piece>();
+
+            pieces[x, y]?.Setup(x, y, this);
+
+            //
+            var c = Instantiate(emptyPiece, new Vector3(x, y, -5), Quaternion.identity);
+            c.transform.parent = transform;
+            Destroy(pieces[x + 1, y].gameObject);
+            pieces[x + 1, y] = c.GetComponent<piece>();
+
+            pieces[x + 1, y]?.Setup(x, y, this);
+            eliminado = true;
+        }
+        return eliminado;
+    }
+
 }

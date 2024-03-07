@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseDown()
     {
+     
         board.tileDown(this);
     }
     private void OnMouseEnter()

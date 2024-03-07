@@ -389,19 +389,20 @@ MonoBehaviour:
   width: 6
   height: 10
   tileObject: {fileID: 5566682390923022914, guid: bcbdd5c2938736547a70defb5d8a3aa7, type: 3}
-  cameraSizeOffset: 0
-  cameraVerticalOffset: 0
+  cameraSizeOffset: 1
+  cameraVerticalOffset: 1
   avalaiblePieces:
   - {fileID: 1242044460274369870, guid: 9ca5d55c36692524b99ed26f16f3af01, type: 3}
-  - {fileID: 7316634958367240836, guid: 3c8562f43c0d6cb41bd64f986fa81e5d, type: 3}
-  - {fileID: 120350063152834840, guid: 080c0b59a3344fb47a46354086291b25, type: 3}
-  - {fileID: 2098098409770226757, guid: 020edca960d3dfd4b8623e61cb16563d, type: 3}
-  - {fileID: 4254309908187419497, guid: 44282705531208e4c8f0c60c7d852ed7, type: 3}
-  - {fileID: 239237891106116093, guid: 0890309bc861911499e91dac06fe8567, type: 3}
-  - {fileID: 6409731483880258713, guid: 7e690f943de5d004f99bace057ee1c7d, type: 3}
-  - {fileID: 9107711918513199880, guid: 69fba722f8c9cda46bc48725f5e98b51, type: 3}
-  - {fileID: 5958741469637982546, guid: 96e465b2cd565e04c94b5765fa11ec48, type: 3}
-  - {fileID: 7589567665917264101, guid: 39eb49fa832fbd14e8b3d4ebf6409fe9, type: 3}
+  - {fileID: 6715735325437135373, guid: e0870638ecb08a54484db4c134e82157, type: 3}
+  - {fileID: 3056804334465939312, guid: 5912c35c13261744cb168edca5eb3fe7, type: 3}
+  - {fileID: 2270627349585549696, guid: 1f7af325b5603b747bf1053368e78637, type: 3}
+  - {fileID: 1697914699003891620, guid: f13317cfdb1a70b46ac3a73ffc21339a, type: 3}
+  - {fileID: 4112279760006551986, guid: 0086d23a82e8d3d4bb2c2dccc83e3c97, type: 3}
+  - {fileID: 7961228290387376492, guid: c097801f7bc2ac34498d2d4402312225, type: 3}
+  - {fileID: 8928824081091644998, guid: 0727ba3decb94bd47ba24b50d5df25c4, type: 3}
+  - {fileID: 7264068043757785475, guid: 9fbeec5d3aa478644b3de30f6588231c, type: 3}
+  - {fileID: 9134538690725678765, guid: a0a757207fae92b4aae0044bd780577e, type: 3}
+  emptyPiece: {fileID: 6646747843566911542, guid: d3a9f72301015e14ab667fae9e337c61, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
