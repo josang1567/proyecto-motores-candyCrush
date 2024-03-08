@@ -18,6 +18,10 @@ public class board : MonoBehaviour
     piece[,] pieces;
     Tile startTile;
     Tile endTile;
+    public bool primerMovimiento = false;
+    [SerializeField] int puntos = 0;
+    bool puedeDestruir = false;
+
     void Start()
     {
         tiles = new Tile[width, height];
@@ -25,13 +29,13 @@ public class board : MonoBehaviour
         setupBoard();
         setupPieces();
         positionCamera();
-        
+
 
     }
 
     void Update()
     {
-        FallDown();
+        boardCheckPieces();
     }
     void setupBoard()
     {
@@ -75,6 +79,7 @@ public class board : MonoBehaviour
 
     public void tileDown(Tile tile_)
     {
+
         startTile = tile_;
     }
     public void tileOver(Tile tile_)
@@ -85,7 +90,12 @@ public class board : MonoBehaviour
     {
         if (startTile != null && endTile != null && isCloseTo(startTile, endTile))
         {
-            swapTiles();
+
+           
+          
+                
+                swapTiles();
+            
         }
     }
     //mover piezas
@@ -99,7 +109,7 @@ public class board : MonoBehaviour
         pieces[startTile.x, startTile.y] = endPiece;
         pieces[endTile.x, endTile.y] = startPiece;
 
-
+        primerMovimiento = true;
 
 
 
@@ -128,8 +138,13 @@ public class board : MonoBehaviour
         return false;
     }
 
-    //caida
+    void boardCheckPieces()
+    {
+        FallDown();
+        spawnPiece();
+    }
 
+    //caida de piezas
     private void FallDown()
     {
         //comprueba cada fila y columna para detectar fichas nulas, en caso de fichas nulas mueve las superiores para abajo
@@ -154,8 +169,28 @@ public class board : MonoBehaviour
         }
     }
 
+    //generacion de piezas
+    private void spawnPiece()
+    {
+        // comprueba la ultima columna en busca de huecos vacios
+        for (int i = 0; i < width; i++)
+        {
+            if (GetPiece(i, height - 1) == null)
+            {
+                // En caso de encontrar un hueco vacio se genera en la posicion una pieza aleatoria y se añade al array
+                var selectedPiece = avalaiblePieces[UnityEngine.Random.Range(0, avalaiblePieces.Length)];
+                var o = Instantiate(selectedPiece, new Vector3(i, height - 1, -5), Quaternion.identity);
+                o.transform.parent = transform;
+                pieces[i, height - 1] = o.GetComponent<piece>();
+                pieces[i, height - 1]?.Setup(i, height - 1, this);
+            }
+        }
+    }
 
-
+    public void addPuntos(int puntos)
+    {
+        this.puntos = puntos + this.puntos;
+    }
 
     //obsoleto
     /*
