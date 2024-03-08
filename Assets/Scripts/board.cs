@@ -13,7 +13,7 @@ public class board : MonoBehaviour
     public float cameraSizeOffset;
     public float cameraVerticalOffset;
     public GameObject[] avalaiblePieces;
-    public GameObject emptyPiece;
+   
     Tile[,] tiles;
     piece[,] pieces;
     Tile startTile;
@@ -87,6 +87,7 @@ public class board : MonoBehaviour
             swapTiles();
         }
     }
+    //mover piezas
     private void swapTiles()
     {
         var startPiece = pieces[startTile.x, startTile.y];
@@ -96,21 +97,21 @@ public class board : MonoBehaviour
         endPiece.Move(startTile.x, startTile.y);
         pieces[startTile.x, startTile.y] = endPiece;
         pieces[endTile.x, endTile.y] = startPiece;
-        if (startPiece.GetComponent<piece>().pieceType.ToString() != "empty")
-        {
-            checkMatch(endPiece.x, endPiece.y);
-        }
-        if (endPiece.GetComponent<piece>().pieceType.ToString() != "empty")
-        {
-            checkMatch(startPiece.x, startPiece.y);
-        }
+
 
 
 
 
     }
-
-
+    //devolver pieza
+    public piece GetPiece(int x, int y)
+    {
+        if (x < 0 || x >= width || y < 0 || y >= height)
+        {
+            return null;
+        }
+        return pieces[x, y];
+    }
 
 
     public bool isCloseTo(Tile start, Tile end)
@@ -125,6 +126,9 @@ public class board : MonoBehaviour
         }
         return false;
     }
+
+    //obsoleto
+    /*
     public void checkMatch(int x, int y)
     {
         switch (x)
@@ -278,6 +282,6 @@ public class board : MonoBehaviour
             eliminado = true;
         }
         return eliminado;
-    }
+    }*/
 
 }
