@@ -58,6 +58,8 @@ public class piece : MonoBehaviour
     }
     void checkBoard()
     {
+        //cada pieza comprueba en todo momento si las piezas que estan a su izquierda derecha, arriba y abajo son iguales para eliminarlas
+
         // check x
         checkX();
         // check y

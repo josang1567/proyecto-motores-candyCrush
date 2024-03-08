@@ -13,7 +13,7 @@ public class board : MonoBehaviour
     public float cameraSizeOffset;
     public float cameraVerticalOffset;
     public GameObject[] avalaiblePieces;
-   
+
     Tile[,] tiles;
     piece[,] pieces;
     Tile startTile;
@@ -25,12 +25,13 @@ public class board : MonoBehaviour
         setupBoard();
         setupPieces();
         positionCamera();
-        //checkTable();
+        
 
     }
 
     void Update()
     {
+        FallDown();
     }
     void setupBoard()
     {
@@ -126,6 +127,35 @@ public class board : MonoBehaviour
         }
         return false;
     }
+
+    //caida
+
+    private void FallDown()
+    {
+        //comprueba cada fila y columna para detectar fichas nulas, en caso de fichas nulas mueve las superiores para abajo
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (pieces[x, y] == null)
+                {
+                    for (int pos = y + 1; pos < height; pos++)
+                    {
+                        if (pieces[x, pos] != null)
+                        {
+                            pieces[x, pos].Move(x, y);
+                            pieces[x, y] = pieces[x, pos];
+                            pieces[x, pos] = null;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     //obsoleto
     /*
